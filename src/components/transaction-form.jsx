@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const TransactionForm = ({ onSubmit }) => {
   const [formState, setFormState] = useState({
-    date: `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
+    date: `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()}`,
     description: "",
     category: "",
     amount: 0,
@@ -21,7 +21,7 @@ export const TransactionForm = ({ onSubmit }) => {
     evt.preventDefault();
     onSubmit(formState);
     setFormState({
-      date: `${new Date().getDate()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
+      date: `${new Date().getFullYear()}-${new Date().getUTCMonth()}-${new Date().getDate()}`,
       description: "",
       category: "",
       amount: 0,
