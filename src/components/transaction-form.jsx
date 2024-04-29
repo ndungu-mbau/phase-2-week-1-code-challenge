@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const TransactionForm = ({ onSubmit }) => {
   const [formState, setFormState] = useState({
-    date: "",
+    date: `${new Date().getDay()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
     description: "",
     category: "",
     amount: 0,
@@ -17,9 +17,20 @@ export const TransactionForm = ({ onSubmit }) => {
     }));
   };
 
+  const submitHandler = (evt) => {
+    evt.preventDefault();
+    onSubmit(formState);
+    setFormState({
+      date: `${new Date().getDay()}/${new Date().getMonth()}/${new Date().getFullYear()}`,
+      description: "",
+      category: "",
+      amount: 0,
+    });
+  };
+
   return (
     <div className="flex justify-around m-8 flex-row shadow">
-      <form onSubmit={(e) => onSubmit(e, formState)}>
+      <form onSubmit={submitHandler}>
         <label htmlFor="date">Date</label>
         <input
           type="date"
