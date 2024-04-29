@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 import {
   Header,
   SearchInput,
@@ -5,27 +7,16 @@ import {
   TransactionTable,
 } from "./components";
 
-const INITIAL_TRANSACTIONS = [
-  {
-    id: 1,
-    date: "2024-01-01",
-    description: "Rent",
-    category: "Rent",
-    amount: 10000,
-  },
-  {
-    id: 2,
-    date: "2024-01-02",
-    description: "Groceries",
-    category: "Food",
-    amount: 500,
-  },
-];
+const genId = () => {
+  return Math.random().toString().split(".")[1].slice(0, 10);
+};
 
 function App() {
+  const [transactions, setTransactions] = useState([]);
+
   const onSubmitHandler = (evt, formState) => {
     evt.preventDefault();
-    console.log({ evt, formState });
+    setTransactions((prev) => [...prev, { ...formState, id: genId() }]);
   };
 
   return (
@@ -33,7 +24,7 @@ function App() {
       <Header title="Bank Of Flatiron" />
       <SearchInput />
       <TransactionForm onSubmit={onSubmitHandler} />
-      <TransactionTable transactions={INITIAL_TRANSACTIONS} />
+      <TransactionTable transactions={transactions} />
     </div>
   );
 }
